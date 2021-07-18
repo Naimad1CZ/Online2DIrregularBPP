@@ -1,0 +1,34 @@
+# for circle containers with radius 10
+SG1 - optimum is 18: https://erich-friedman.github.io/packing/squincir/
+SG2 - optimum is 35: https://erich-friedman.github.io/packing/lincir/
+SG3 - optimum is 93
+
+SG1 - 21 shapes, rotations=4
+SG2 - 36 shapes, rotations=1
+SG3 - 93 shapes, rotations=2
+SG4 - 180 shapes, rotations=3
+SG5 - 300 shapes, rotations=6
+SG6 - 250 shapes, rotations=4
+SG7 - 330 shapes, rotations=4
+
+albano: total 24 shapes, width=4900, height=10000, rotations=4
+dighe1: total 16 shapes, width=100.01, heigth=100.01, rotations=1
+dighe2: total 10 shapes, width=100.01, heigth=100.01, rotations=1
+marques: total 24 shapes, width=104, heigth=80, rotations=4
+shapes: total 43 shapes, width=40, heigth=55, rotations=2
+swim: total 48 shapes, width=5752, heigth=6000, rotations=2
+
+scales = [0.001, 0.05, 0.05, 0.05, 0.1, 0.001]
+resp. scales = [0.1, 10, 10, 10, 10, 0.1]
+
+Alternative data (when reading from my created .csv files):
+albano: w=49, h=100
+dighe1: w=100.01, h=100.01
+dighe2: w=100.01, h=100.01
+marques: w=104, h=80
+shapes: w=40, h=55
+swim: w=57.52, h=60
+SG: w=90, h=90
+
+Scale 10x for input for other offline codes.
+Scale 0.1x for input for my implementation.

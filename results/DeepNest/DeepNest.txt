@@ -1,0 +1,15 @@
+// there are correct ratios
+albano: 21, 0.8506, 340s
+dighe1: 15, 0.9102, 690s
+dighe2: 7, 0.7878, 720s
+marques: 22, 0.8551, 600s
+shapes: 36, 0.6473, 360s
+swim: 42, 0.6744, 660s
+
+SG1: 20, 0.8759, 135s
+SG2: 36, 0.8386, 1s
+SG3: 77, 0.8907, 120s 
+SG4: 141, 0.7321, 130s 
+SG5: 231, 0.7519, 110s 
+SG6: 191, 0.8365, 400s; (na prvních 231 polygonech) 214, 0.8354, 520s
+SG7: (na prvních 309 polygonech) 254, 0.7121, 250s; (na 330 polygonech) 241, 0.7140, 960s

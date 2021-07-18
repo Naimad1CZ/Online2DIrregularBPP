@@ -1,0 +1,17 @@
+// there are correct ratios
+*čas - je velmi závislý na tom, jakou použijeme discretization tolerance
+
+albano: 23/24, 0.8131, 16s
+dighe1: 10/16, 0.6047, 21s
+dighe2: 6/10, 0.6662, 16s
+marques: 22/24, 0.7925, 20s
+shapes: 29/43, 0.5491, 18s
+swim: 37/48, 0.6216, 23s
+
+SG1: 18/21, 0.7882,  21s
+SG2: 36/36, 0.8386, 22s
+SG3: 76/93, 0.8719, 44s
+SG4: 145/180, 0.7387, 103s
+SG5: 239/300, 0.7535, 359s
+SG6: 197/250, 0.8456, 226s
+SG7: 252/330, 0.7099, 436s

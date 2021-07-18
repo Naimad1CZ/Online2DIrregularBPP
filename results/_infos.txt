@@ -1,0 +1,11 @@
+_Comparison_with_larger_containers: Tested SG1, SG2, SG4, SG5, SG6 and SG7 on smaller and bigger rectangular containers
+_Damian's results: results from my implemented methods with various parameters on SG1-SG7. Also done EURO datasets for best surround_waste_plus and best bottom_left algo.
+_time_analysis: results, how much time it took to do various parts of algorithms (in name shape of container + its radius). _surr_waste_plus_intersection_time is a "part" of _surr_waste_plus_time.
+
+Dalsoo: https://github.com/whitegreen/Dalsoo-Bin-Packing
+Daniel_and_Filip: results from colleagues from student faculty grant
+DeepNest: https://deepnest.io/
+NestFab: https://www.nestfab.com/
+Packaide: https://github.com/DanielLiamAnderson/Packaide
+PowerNest: https://demo.powernestlib.com/
+SvandaOndrej: https://dspace.vutbr.cz/xmlui/handle/11012/191851?locale-attribute=en

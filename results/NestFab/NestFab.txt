@@ -1,0 +1,15 @@
+// there are correct ratios
+albano: 24/24, 0.8705, 2s
+dighe1: 16/16, 0.9998, 2s
+dighe2: 10/10, 0.9998, 1s
+marques: 24/24, 0.8647 (1s)/0.9159(68s) - druhé ukazuje vzhledem k tomu, že tam byla mezera
+shapes: 43/43, 0.7164, 244s
+swim: 48/48, 0.7373(3s)/0.7747(56s)
+
+SG1: 21/21, 0.9196, 0s
+SG2: 36/36, 0.8386, 0s
+SG3: 88/93, 0.9461, 239s
+SG4: 179/180, 0.8428, 385s; (only 2 rotations out of 3)
+SG5: 300/300, 0.8760 (90s)/ 0.8973(258s); (only 4 rotations out of 6)
+SG6: 226/250, 0.9071, 241s
+SG7: 330/330, 0.8554/0.8560, 327s

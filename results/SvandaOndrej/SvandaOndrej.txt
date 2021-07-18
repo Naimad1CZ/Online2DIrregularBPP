@@ -1,0 +1,15 @@
+// there are correct ratios
+albano: -/24 - crash of program (tipuju, že kvůli libnfporbu)
+dighe1: 10/16, 0.7048, 0.07s
+dighe2: 6/10, 0.6651, 0.03s
+marques: 18/24, 0.8276, 0.6s
+shapes: 30/43, 0.5709, 1s
+swim: 40/48, 0.6713, 3s
+
+SG1: 17/21, 0.7444, 0.2s
+SG2: 36/36, 0.8386, 0.2s
+SG3: 74/93, 0.8746, 6s
+SG4: 146/180, 0.7517, 58s
+SG5: 240/300, 0.7765, 204s
+SG6: -/250 - tipuju, že se to zaseklo v nekonečném loopu v libnfporb-u
+SG7: 256/330, 0.7481, 228s
