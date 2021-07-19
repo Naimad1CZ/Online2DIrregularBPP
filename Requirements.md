@@ -1,11 +1,11 @@
 What you need in order to run this project:
 
 `Python` (recommended 3.6) and the libraries:  
--`shapely`  
--`matplotlib`  
--`descartes` (for graph drawing)  
--optionally `pandas` (used for processing datasets)  
--very optionally `svg.path` and `dxfwrite` (used for processing datasets to convert them to other file formats to run benchmarks on offline implementations)
+-`shapely` (personally using 1.7.1)  
+-`matplotlib` (personally using 3.3.2)  
+-`descartes` (for graph drawing) (personally using 1.1.0)  
+-optionally `pandas` (used for processing datasets) (personally using 1.1.2)  
+-very optionally `svg.path` (personally using 4.1) and `dxfwrite` (personally using 1.2.2) - they are used for processing datasets to convert them to other file formats to run benchmarks on offline implementations
 
 And then a lot of things to build  `libnfporb` library.
 
@@ -24,7 +24,7 @@ Then you need to define following environment variables: `%PYTHONPATH%` (in my c
 
 Then you need to make sure that you have `cmake` (download from `https://cmake.org/download/`, don't forget to add it to PATH during installation (on Windows at least)).
 
-Then you need to follow *Visual Studio (Windows)* or *Other systems* steps.
+Then you need to follow *Visual Studio (Windows)* or *Other platforms* steps.
 
 ### Visual Studio (Windows)
 
