@@ -39,9 +39,6 @@ for name, placer in racers.items():
     print(f" Racer: {name}")
     print("*" * 50)
 
-    containers = [[(-9, -9), (9, -9), (9, 9), (-9, 9)], None]
-    picking_policy = picking_policies[6]
-
     euro_datasets = False
     best_run = True
     run_dan_filip = False
@@ -211,6 +208,9 @@ for name, placer in racers.items():
             print("", file=f)
 
     elif online_benchmarks:
+        containers = [[(-9, -9), (9, -9), (9, 9), (-9, 9)], None]
+        picking_policy = picking_policies[0]
+
         with open('../results/' + picking_policy + '.txt', 'w') as f:
             for cont in containers:
                 for CFR_mode in [0, 1, 2]:

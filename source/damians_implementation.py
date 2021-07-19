@@ -256,7 +256,7 @@ class DamiansPlacer(Placer):
             if can[2] < minimum_circumference_increase:
                 minimum_circumference_increase = can[2]
 
-        global_candidates = [x for x in global_candidates if x[2] < minimum_circumference_increase + (shap_length / 20)]
+        global_candidates = [x for x in global_candidates if x[2] < minimum_circumference_increase + (shap_length / 10)]
 
         # some big initial number
         minimum_waste = self._radius * self._radius * 1000
