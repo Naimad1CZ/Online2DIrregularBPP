@@ -1,6 +1,6 @@
 What you need in order to run this project:
 
-`Python` (recommended 3.6) and the libraries:  
+`Python` (personally using 3.6, higher version might be also ok) and the libraries:  
 -`shapely` (personally using 1.7.1)  
 -`matplotlib` (personally using 3.3.2)  
 -`descartes` (for graph drawing) (personally using 1.1.0)  
@@ -22,9 +22,9 @@ https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/
 
 Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).
 
-Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to PATH during installation (on Windows at least)).
+Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to `PATH` during installation (on Windows at least)).
 
-Then you need to follow *Visual Studio (Windows)* or *Other platforms* steps.
+Then you need to follow *Visual Studio (Windows)* or *Any platform* steps.
 
 ### Visual Studio (Windows)
 
@@ -34,7 +34,7 @@ To run it, you need to have Visual Studio 2017 or 2019 with "Desktop development
 
 Then you have to make sure that you have `pybind11` (other one than Python library) installed.
 
-My way of installation: go to some repository where you want to install `vcpkg` (e.g. C:/local/), open PowerShell, run following commands:  
+My way of installation: go to some repository where you want to install `vcpkg` (e.g. `C:\local\`), open PowerShell, run following commands:  
 `git clone https://github.com/Microsoft/vcpkg.git`  
 `.\vcpkg\bootstrap-vcpkg.bat`  
 `.\vcpkg\vcpkg.exe install pybind11:x64-windows ` (be patient while it downloads and installs)  
@@ -44,7 +44,7 @@ It should be enough to just run `build.bat` by doubleclicking the file and it wi
 
 If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `[DLL load failed: The specified module could not be found]`, then try to delete this `libnfporb_interface.pyd` file and rename  `libnfporb_interface.pyd_rescue` to  `libnfporb_interface.pyd` . 
 
-### Other Platforms
+### Any platform
 Use `cmake` to generate the project for your compiler with the
 `CmakeLists.txt` file provided. In the `source/nfp_interface`
 folder, run:
