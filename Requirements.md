@@ -22,7 +22,7 @@ https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/
 
 Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).
 
-Then you need to make sure that you have `cmake` (download from `https://cmake.org/download/`, don't forget to add it to PATH during installation (on Windows at least)).
+Then you need to make sure that you have `cmake` (download from [https://cmake.org/download/], don't forget to add it to PATH during installation (on Windows at least)).
 
 Then you need to follow *Visual Studio (Windows)* or *Other platforms* steps.
 
@@ -37,8 +37,8 @@ Then you have to make sure that you have `pybind11` (other one than Python libra
 My way of installation: go to some repository where you want to install `vcpkg` (e.g. C:/local/), open PowerShell, run following commands:  
 `git clone https://github.com/Microsoft/vcpkg.git`  
 `.\vcpkg\bootstrap-vcpkg.bat`  
-`\.vcpkg\vcpkg.exe install pybind11:x64-windows ` (be patient while it downloads and installs)  
-`\.vcpkg\vcpkg.exe integrate install`
+`.\vcpkg\vcpkg.exe install pybind11:x64-windows ` (be patient while it downloads and installs)  
+`.\vcpkg\vcpkg.exe integrate install`
 
 It should be enough to just run `build.bat` by doubleclicking the file and it will launch Developer Command Prompt for Visual Studio. If not, then run the file from Developer PowerShell from Visual Studio.
 
