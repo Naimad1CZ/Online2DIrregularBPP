@@ -22,7 +22,7 @@ https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/
 
 Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).
 
-Then you need to make sure that you have `cmake` (download from [https://cmake.org/download/], don't forget to add it to PATH during installation (on Windows at least)).
+Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to PATH during installation (on Windows at least)).
 
 Then you need to follow *Visual Studio (Windows)* or *Other platforms* steps.
 
