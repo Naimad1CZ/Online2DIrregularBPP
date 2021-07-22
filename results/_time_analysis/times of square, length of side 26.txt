@@ -1,0 +1,55 @@
+SG1, SG2, SG4, SG5, SG6, SG7:
+
+time elapsed this run: 12.995198249816895
+IFP_time time elapsed this run: 0.2398526668548584
+NFP_time time elapsed this run: 7.368457317352295
+NFP_unary_union_time time elapsed this run: 0.37019824981689453
+difference_time time elapsed this run: 0.03155231475830078
+get_geom_points_time time elapsed this run: 0.007994651794433594
+_surr_waste_plus_time time elapsed this run: 4.256269693374634
+_surr_waste_plus_intersection_time time elapsed this run: 1.901393175125122
+
+time elapsed this run: 4.31335711479187
+IFP_time time elapsed this run: 0.12564682960510254
+NFP_time time elapsed this run: 2.910306215286255
+NFP_unary_union_time time elapsed this run: 0.3460533618927002
+difference_time time elapsed this run: 0.014540672302246094
+get_geom_points_time time elapsed this run: 0.003999471664428711
+_surr_waste_plus_time time elapsed this run: 0.3439359664916992
+_surr_waste_plus_intersection_time time elapsed this run: 0.14889812469482422
+
+time elapsed this run: 342.8627791404724
+IFP_time time elapsed this run: 1.109259843826294
+NFP_time time elapsed this run: 179.21306777000427
+NFP_unary_union_time time elapsed this run: 31.715439558029175
+difference_time time elapsed this run: 0.6750872135162354
+get_geom_points_time time elapsed this run: 0.05548524856567383
+_surr_waste_plus_time time elapsed this run: 117.79495525360107
+_surr_waste_plus_intersection_time time elapsed this run: 100.45154857635498
+
+time elapsed this run: 1087.612488746643
+IFP_time time elapsed this run: 1.9115781784057617
+NFP_time time elapsed this run: 484.1484134197235
+NFP_unary_union_time time elapsed this run: 149.97475457191467
+difference_time time elapsed this run: 2.459970235824585
+get_geom_points_time time elapsed this run: 0.2156844139099121
+_surr_waste_plus_time time elapsed this run: 416.20458221435547
+_surr_waste_plus_intersection_time time elapsed this run: 366.19121503829956
+
+time elapsed this run: 636.8343696594238
+IFP_time time elapsed this run: 1.6359875202178955
+NFP_time time elapsed this run: 304.6528878211975
+NFP_unary_union_time time elapsed this run: 60.045589208602905
+difference_time time elapsed this run: 1.1818578243255615
+get_geom_points_time time elapsed this run: 0.10686898231506348
+_surr_waste_plus_time time elapsed this run: 248.76711535453796
+_surr_waste_plus_intersection_time time elapsed this run: 215.01082944869995
+
+time elapsed this run: 1224.1981315612793
+IFP_time time elapsed this run: 2.020702600479126
+NFP_time time elapsed this run: 602.2220735549927
+NFP_unary_union_time time elapsed this run: 139.08479142189026
+difference_time time elapsed this run: 2.2502284049987793
+get_geom_points_time time elapsed this run: 0.15265536308288574
+_surr_waste_plus_time time elapsed this run: 442.47823572158813
+_surr_waste_plus_intersection_time time elapsed this run: 393.5384302139282
