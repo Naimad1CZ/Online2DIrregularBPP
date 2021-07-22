@@ -5,18 +5,6 @@ from math import sin, cos, radians, sqrt, pi
 from shapely.geometry import Polygon
 
 
-def polygon_area(corners):
-    """Implementation of Shoelace formula."""
-    n = len(corners)  # of corners
-    area = 0.0
-    for i in range(n):
-        j = (i + 1) % n
-        area += corners[i][0] * corners[j][1]
-        area -= corners[j][0] * corners[i][1]
-    area = abs(area) / 2.0
-    return round(area, 12)  # round to 12 decimal places because of floating point arithmetics problems)
-
-
 # define Python user-defined exceptions
 class NotAllowedError(Exception):
     """Raised when performing not allowed operation."""
@@ -32,7 +20,6 @@ class Symmetry(IntEnum):
 
 
 class ShapeGenerator(object):
-
     def __init__(self, radius: float, rotations: Symmetry, container=None):
         self._radius = radius
         self._rotations = rotations
@@ -89,7 +76,6 @@ class ShapeGenerator(object):
             if difference_area > 0.000000000001:
                 raise NotAllowedError(f"You can't place a shape outside of the container {self._container_coords}!")
 
-
         # check collisions using shapely library
         current_shape = Polygon(s)
         other_shapes = [Polygon(x) for x in self._shapes]
@@ -104,7 +90,7 @@ class ShapeGenerator(object):
         self._shape = None
         self._ready = True
 
-    def show_results(self, savename = None):
+    def show_results(self, savename=None):
         f = plt.figure()
         # add circle
         ax = f.gca()
@@ -128,7 +114,7 @@ class ShapeGenerator(object):
     @property
     def filled_area(self):
         polygons = [Polygon(x) for x in self._shapes]
-        area = sum([(x.area) for x in polygons])  # total area of shapes
+        area = sum([x.area for x in polygons])  # total area of shapes
         if self._container is None:
             ratio = area / (pi * self._radius * self._radius)
         else:
@@ -181,7 +167,6 @@ class ShapeGenerator(object):
 
 
 # SFG competition placer interface:
-
 class Placer(object):
     def __init__(self, sg: ShapeGenerator):
         self._sg = sg

@@ -1,11 +1,11 @@
-from generator_placer_base import ShapeGenerator, Placer
+from generator_placer_base import ShapeGenerator, Placer, Symmetry
 from shape_generators import RandomShapeGenerator
 from geometry_tools import get_CFR_candidate_points, rotate_around_first_point, regular_polygon,\
     translate_where_point_has_x_y
-import drawing
 import geometry_tools
+import drawing
 
-from shapely.geometry import *
+from shapely.geometry import Polygon, MultiPolygon, box
 from shapely.ops import unary_union
 
 import itertools
@@ -34,7 +34,7 @@ def log(*s, severity=4):
 class DamiansPlacer(Placer):
     # container should be either Polygon or list of tuples - coordinates x, y, or None - indicates circle container
     def __init__(self, sg: ShapeGenerator, container=None):
-        self._sg = sg
+        super().__init__(sg)
         # _radius is just approximate (doesn't need to be exact) number how big is "radius" of polygon container;
         # for circle containers it's the exact size of radius of circle;
         # _radius is also used as pyplot radius
@@ -120,7 +120,9 @@ class DamiansPlacer(Placer):
         # adds a square root of the area of current shape
         self.total_shapes_sqrt_area += sqrt(shap.area)
         average_sqrt = self.total_shapes_sqrt_area / (self._count_of_placed + 1)
-        buffer_distance = average_sqrt / 4  # the best works something like 3.5 or 4, in wider range 3 - 4.5
+
+        # the best _surround_waste_plus_parameter is something like 3.5 or 4, in wider range 3 - 4.5
+        buffer_distance = average_sqrt / self._surround_waste_plus_parameter
 
         # will be counted including the area of candidate, but it's the same for every candidate
         minimum_waste_around = self._radius * self._radius * 1000
@@ -138,8 +140,8 @@ class DamiansPlacer(Placer):
 
             outer_area = buffered_cand_outside.area
 
-            # best _surround_waste_plus_parameter is apparently 0.04, maybe 0.08
-            waste = inner_intersection_area + self._surround_waste_plus_parameter * outer_area
+            # best _surround_waste_plus_parameter2 is apparently 0.08, maybe 0.04
+            waste = inner_intersection_area + self._surround_waste_plus_parameter2 * outer_area
 
             if waste < minimum_waste_around:
                 minimum_waste_around = waste
@@ -214,10 +216,6 @@ class DamiansPlacer(Placer):
 
         log('start_for_cycles')
 
-        inversion = self._container.difference(self._curr_pol.buffer(200 * EPSILON, 1, join_style=2))
-        if type(inversion) is Polygon:
-            inversion = MultiPolygon([inversion])
-
         # Go through all existing (distinct) polygons that we need to fill
         for pol in self._curr_pol:
             pol_area = pol.area
@@ -273,16 +271,16 @@ class DamiansPlacer(Placer):
         winner = global_candidates[0]
         return winner[0]
 
-    def choose_the_best_candidate(self, candidates_shapes, candidates_points, candidates_areas, shap, choose_least_area_IFP, picking_policy):
+    def choose_the_best_candidate(self, candidates_shapes, candidates_points, candidates_areas, shap, choose_least_CFR_area, picking_policy):
         all_cand_shapes = list(itertools.chain(*candidates_shapes))
         log('len:', len(all_cand_shapes))
         if len(all_cand_shapes) == 0:
             log('No candidates available!')
             drawing.show_in_pyplot(self._all_placed_shapes, lines=[self._container.exterior], dpi=500, really_ret=False, mode=1, total_placed_shapes=self._count_of_placed)
-            #drawing.show_in_pyplot(self._all_placed_shapes, lines=[self._container.exterior], last_polygon=shap, dpi=500, really_ret=False, mode=2)
+            #drawing.show_in_pyplot(self._all_placed_shapes, lines=[self._container.exterior], last_polygon=shap, dpi=500, really_ret=False, CFR_mode=2)
             return -1
 
-        if choose_least_area_IFP:
+        if choose_least_CFR_area:
             shap_area = shap.area
             cand_shapes = []
             cand_points = []
@@ -338,12 +336,12 @@ class DamiansPlacer(Placer):
                     break
                 except ValueError:
                     pass
-            winner = self.choose_the_best_candidate(candidates_shapes, candidates_points, candidates_areas, shap, choose_least_area_IFP, picking_policy)
+            winner = self.choose_the_best_candidate(candidates_shapes, candidates_points, candidates_areas, shap, choose_least_CFR_area, picking_policy)
 
         return winner
 
 
-    def place_shape(self, shap: Polygon, CFR_mode: int, choose_least_area_IFP: bool, picking_policy: str):
+    def place_generated_shape(self, shap: Polygon, CFR_mode: int, choose_least_CFR_area: bool, picking_policy: str):
         if shap.area < self._smallest_shape_area:
             self._smallest_shape_area = shap.area
         if type(self._curr_pol) is Polygon:
@@ -355,19 +353,16 @@ class DamiansPlacer(Placer):
         candidates_points = []
         candidates_areas = []
 
-        if self._count_of_placed == 12:
-            pass
-
         # Go through all the rotations
         for i in range(int(n_rotations)):
             s = rotate_around_first_point(shap, i * self._rotations)
-            cands, points, areas = get_CFR_candidate_points(self._container, self._all_placed_shapes, s, mode=CFR_mode)
+            cands, points, areas = get_CFR_candidate_points(self._container, self._all_placed_shapes, s, CFR_mode=CFR_mode)
             candidates_shapes.extend(cands)
             candidates_points.extend(points)
             candidates_areas.extend(areas)
 
         log('start choosing the best candidate')
-        winner = self.choose_the_best_candidate(candidates_shapes, candidates_points, candidates_areas, shap, choose_least_area_IFP=choose_least_area_IFP, picking_policy=picking_policy)
+        winner = self.choose_the_best_candidate(candidates_shapes, candidates_points, candidates_areas, shap, choose_least_CFR_area=choose_least_CFR_area, picking_policy=picking_policy)
         if type(winner) is int:
             return winner
 
@@ -406,7 +401,7 @@ class DamiansPlacer(Placer):
         log('problem finding rotation!')
         return -2
 
-    def run(self, CFR_mode: int, choose_least_area_IFP: bool, picking_policy: str, surround_waste_plus_parameter=None):
+    def run(self, CFR_mode: int, choose_least_CFR_area: bool, picking_policy: str, surround_waste_plus_parameter=None, surround_waste_plus_parameter2=None):
         start = time.time()
 
         log('start:', severity=2)
@@ -416,13 +411,19 @@ class DamiansPlacer(Placer):
         drawing.pyplot_radius = self._radius
         drawing.ret = drawing_return
 
-        if surround_waste_plus_parameter is None and (picking_policy == 'surround_waste_plus' or picking_policy == 'conv_hull_surr_waste'):
-            self._surround_waste_plus_parameter = 0.08  # 0.04 is also possible and good
-        else:
+        # relevant only for picking_policies 'surround_waste_plus' and == 'conv_hull_surr_waste'
+        if surround_waste_plus_parameter is not None:
             self._surround_waste_plus_parameter = surround_waste_plus_parameter
+        else:
+            self._surround_waste_plus_parameter = 4  # range 3 - 4.5 is good overall
+
+        if surround_waste_plus_parameter2 is not None:
+            self._surround_waste_plus_parameter2 = surround_waste_plus_parameter2
+        else:
+            self._surround_waste_plus_parameter2 = 0.08  # 0.04 is also possible and good
 
         dt = datetime.datetime.now()
-        drawing.drawing_name = picking_policy + '-' + str(CFR_mode) + '-' + str(int(choose_least_area_IFP)) + '_'\
+        drawing.drawing_name = picking_policy + '-' + str(CFR_mode) + '-' + str(int(choose_least_CFR_area)) + '_'\
                                + str(dt.hour) + '-' + str(dt.minute) + '-' + str(dt.second) + '_'
         drawing.counter = 0
 
@@ -431,7 +432,7 @@ class DamiansPlacer(Placer):
         while return_sign == 0:
             s = self._sg.new_shape()
             pol_s = Polygon(s)
-            return_sign = self.place_shape(pol_s, CFR_mode, choose_least_area_IFP, picking_policy)
+            return_sign = self.place_generated_shape(pol_s, CFR_mode, choose_least_CFR_area, picking_policy)
 
         end = time.time()
         log('the end', severity=3)
@@ -448,6 +449,7 @@ class DamiansPlacer(Placer):
         log('picking policy was:', picking_policy, severity=2)
         if picking_policy == 'surround_waste_plus' or picking_policy == 'conv_hull_surr_waste':
             log('self._surround_waste_plus_parameter =', self._surround_waste_plus_parameter, severity=2)
+            log('self._surround_waste_plus_parameter2 =', self._surround_waste_plus_parameter2, severity=2)
 
         geometry_tools.IFP_time = 0
         geometry_tools.NFP_time = 0
@@ -457,8 +459,8 @@ class DamiansPlacer(Placer):
 
         return self._sg
 
+
 if __name__ == '__main__':
     #placer = DamiansPlacer(SquareShapeGenerator(radius, 120))
-    placer = DamiansPlacer(RandomShapeGenerator(radius=10, rotations=90, fixed_seed=42))
+    placer = DamiansPlacer(RandomShapeGenerator(radius=10, rotations=Symmetry.fourfold, fixed_seed=42))
     #placer.run(1, True, 'bottom_left')
-

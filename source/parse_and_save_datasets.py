@@ -2,8 +2,8 @@ import pandas as pd
 import json
 import math
 
-from generator_placer_base import Symmetry, ShapeGenerator
-from shape_generators import RealShapeGenerator, SG1, SG2, SG3, SG4, SG5, SG6, SG7
+from generator_placer_base import ShapeGenerator
+from shape_generators import SG1, SG2, SG3, SG4, SG5, SG6, SG7
 
 from shapely.geometry import Polygon
 
@@ -13,7 +13,7 @@ from svg.path.path import Line
 from dxfwrite import DXFEngine as dxf
 
 
-def normData(poly, num):
+def norm_data(poly, num):
     for ver in poly:
         ver[0] = round(ver[0] * num, 10)
         ver[1] = round(ver[1] * num, 10)
@@ -35,7 +35,7 @@ def parse_polygons_from_seanys_csv(filename: str, scale):
     for i in range(0, dataset.shape[0]):
         for j in range(0, dataset['num'][i]):
             poly = json.loads(dataset['polygon'][i])
-            normData(poly, scale)
+            norm_data(poly, scale)
             poly.append(poly[0].copy())
             polygons.append(poly)
     return polygons
@@ -102,14 +102,22 @@ def create_dataset_from_SG():
 
     polys = get_polygons_from_generators(gen, no_polygons)
     polys = [[[x[0], x[1]] for x in pol] for pol in polys]
-    x = 8
     for p in polys:
         print('p', p)
-        normData(p, scale_factor)
+        norm_data(p, scale_factor)
         print('q', p)
-    x = 7
     print_polygons_csv2(filename, polys)
 
+def create_sorted_dataset(filename):
+    items = parse_polygons_from_seanys_csv('../datasets/' + filename, 1)
+    polys = [Polygon(i) for i in items]
+    polys.sort(key=lambda x: x.area, reverse=True)
+    for p in polys:
+        print(p.area)
+
+    polygons = [p.exterior.coords for p in polys]
+
+    print_polygons_csv2('sorted/' + filename + '_sorted', polygons)
 
 def calculate_deepnest_area_ratio(filename, scaled_width, scaled_heigth):
     doc = minidom.parse('../datasets/' + filename)
@@ -144,7 +152,7 @@ def calculate_deepnest_area_ratio(filename, scaled_width, scaled_heigth):
     print('ratio', ratio)
 
 
-def calculate_area_fron_packaide_svg(filename, scaled_width, scaled_heigth):
+def calculate_area_from_packaide_svg(filename, scaled_width, scaled_heigth):
     doc = minidom.parse('../datasets/' + filename)
     path_strings = [path.getAttribute('d') for path
                     in doc.getElementsByTagName('path')]
@@ -229,11 +237,3 @@ if __name__ == "__main__":
 
     polys.append(box)
     create_polygons_real_svg(filename, polys)
-
-
-
-
-
-
-
-

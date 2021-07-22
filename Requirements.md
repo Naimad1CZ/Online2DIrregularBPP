@@ -42,7 +42,7 @@ My way of installation: go to some repository where you want to install `vcpkg` 
 
 It should be enough to just run `build.bat` by doubleclicking the file and it will launch Developer Command Prompt for Visual Studio. If not, then run the file from Developer PowerShell from Visual Studio.
 
-If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `[DLL load failed: The specified module could not be found]`, then try to delete this `libnfporb_interface.pyd` file and rename  `libnfporb_interface.pyd_rescue` to  `libnfporb_interface.pyd` . 
+If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `DLL load failed: The specified module could not be found`, then try to delete this `libnfporb_interface.pyd` file and rename  `libnfporb_interface_rescue.pyd` to  `libnfporb_interface.pyd` . 
 
 ### Any platform
 Use `cmake` to generate the project for your compiler with the

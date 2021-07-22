@@ -1,10 +1,10 @@
 from matplotlib import pyplot as plt
-from shapely.geometry import *
+from shapely.geometry import Polygon, MultiPolygon
 from descartes.patch import PolygonPatch
 import os
 
 pyplot_radius = 11  # set this from outside to get the needed size of pyplot figures
-ret = False  # set to True to disable drawing pyplot figures
+ret = False  # set to True to disable drawing pyplot figures; also set this from outside
 
 counter = 0
 _internal_counter = 0

@@ -559,39 +559,7 @@ class CecoinGenerator(RealShapeGenerator):
     ]
 
 
-def normData(poly, num):
-    for ver in poly:
-        ver[0] = ver[0] * num
-        ver[1] = ver[1] * num
 
-def parse_from_seanys_csv(filename: str, scale):
-    dataset = pd.read_csv(filename + ".csv")
-    polygons = []
-    for i in range(0, dataset.shape[0]):
-        for j in range(0, dataset['num'][i]):
-            poly = json.loads(dataset['polygon'][i])
-            normData(poly, scale)
-            polygons.append(poly)
-    return polygons
-
-
-class FromCSVFileShapeGenerator(ShapeGenerator):
-    def _get_shape(self):
-        if len(self._shape_buffer) == 0:
-            # return some extra big shape that is impossible to place
-            big_number = self._radius * self._radius * 100
-            a = [[0, 0], [big_number, 0], [big_number, big_number], [0, big_number]]
-            return a
-        s = self._shape_buffer.pop(0)
-        return s
-
-    def __init__(self, radius: float, rotations: Symmetry, filename: str, container=None, scale=1):
-        self._shape_buffer = parse_from_seanys_csv(filename, scale)
-        for i in range(len(self._shape_buffer)):
-            #print(self._shape_buffer[i])
-            pol = Polygon(self._shape_buffer[i])
-            print(pol.area)
-        super().__init__(radius=radius, rotations=rotations, container=container)
 
 # Custom shape generators for benchmarks
 radius_scale = 1
@@ -625,6 +593,38 @@ class SG7(RandomHexagonShapeGenerator):
         super().__init__(radius=10 * radius_scale, rotations=Symmetry.fourfold, fixed_seed=1701, container=container)
 
 
-class EUROS(FromCSVFileShapeGenerator):
-    def __init__(self, polygon_radius, symmetry, filename, container, scale):
-        super().__init__(radius=polygon_radius * radius_scale, rotations=symmetry, filename=filename, container=container, scale=scale)
+# generator for parsing datasets
+def norm_data(poly, num):
+    for ver in poly:
+        ver[0] = ver[0] * num
+        ver[1] = ver[1] * num
+
+
+def parse_from_seanys_csv(filename: str, scale):
+    dataset = pd.read_csv(filename + ".csv")
+    polygons = []
+    for i in range(0, dataset.shape[0]):
+        for j in range(0, dataset['num'][i]):
+            poly = json.loads(dataset['polygon'][i])
+            norm_data(poly, scale)
+            polygons.append(poly)
+    return polygons
+
+
+class FromCSVFileShapeGenerator(ShapeGenerator):
+    def _get_shape(self):
+        if len(self._shape_buffer) == 0:
+            # return some extra big shape that is impossible to place
+            big_number = self._radius * self._radius * 100
+            a = [[0, 0], [big_number, 0], [big_number, big_number], [0, big_number]]
+            return a
+        s = self._shape_buffer.pop(0)
+        return s
+
+    def __init__(self, polygon_radius: float, rotations: Symmetry, filename: str, container, scale):
+        self._shape_buffer = parse_from_seanys_csv(filename, scale)
+        for i in range(len(self._shape_buffer)):
+            #print(self._shape_buffer[i])
+            pol = Polygon(self._shape_buffer[i])
+            #print('polygon area:', pol.area)
+        super().__init__(radius=polygon_radius, rotations=rotations, container=container)

@@ -36,7 +36,7 @@ where devenv >nul 2>nul
 if %ERRORLEVEL% neq 0 (
 	echo Developer command prompt for Visual Studio 2017 or 2019 could not be found or started, please launch this script manually from it.
 	echo.
-    echo If you use a different version, please refer to README.md for manual installation.
+    echo If you use a different version, please refer to Requirements.md for manual installation.
     goto error
 )
 

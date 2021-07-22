@@ -184,7 +184,7 @@ difference_time = 0
 get_geom_points_time = 0
 
 
-def get_CFR_candidate_points(container, already_placed_shapes, shape, mode):
+def get_CFR_candidate_points(container, already_placed_shapes, shape, CFR_mode):
     start = time.time()
 
     ifp = compute_IPF_return_geometry(container, shape)
@@ -252,10 +252,10 @@ def get_CFR_candidate_points(container, already_placed_shapes, shape, mode):
     global get_geom_points_time
     get_geom_points_time += end - start
 
-    # mode 0 - normal
-    # mode 1 - reduce - remove vertices that aren't in the convex hull of individual IFPs/CRFs
-    # mode 2 - extend - pick all vertices of IFPs/CFRs and add points on edges of IFPs/CFRs
-    if mode == 1:
+    # CFR_mode 0 - normal
+    # CFR_mode 1 - reduce - remove vertices that aren't in the convex hull of individual regions of CRFs
+    # CFR_mode 2 - extend - pick all vertices of CFRs and add points on edges of CFRs
+    if CFR_mode == 1:
         reduced = []
         log('lists length:', len(lists))
         for l in lists:
@@ -272,7 +272,7 @@ def get_CFR_candidate_points(container, already_placed_shapes, shape, mode):
         log('afterward lists length:', len(lists))
         lists = reduced
 
-    elif mode == 2:
+    elif CFR_mode == 2:
         if len(lists) > 0:
             longest_edge_length = 0
             edge_count = 0
