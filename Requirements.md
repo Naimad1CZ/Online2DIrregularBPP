@@ -42,7 +42,23 @@ My way of installation: go to some repository where you want to install `vcpkg` 
 
 It should be enough to just run `build.bat` by doubleclicking the file and it will launch Developer Command Prompt for Visual Studio. If not, then run the file from Developer PowerShell from Visual Studio.
 
-If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `DLL load failed: The specified module could not be found`, then try to delete this `libnfporb_interface.pyd` file and rename  `libnfporb_interface_rescue.pyd` to  `libnfporb_interface.pyd` . 
+If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `DLL load failed: The specified module could not be found`, then you have 2 options (hopefully at least one of them will work):
+
+A)  
+-install Python 3.6 (3.6.8 if possible) and all required Python libraries (shapely, matplotlib, ...)  
+-delete `libnfporb_interface.pyd` file (in `/source/nfp_interface/`)  
+-rename `libnfporb_interface_rescue.pyd` to `libnfporb_interface.pyd`  
+-run `run_tests.py` using Python 3.6.
+
+B)  
+-open Developer Command prompt for VS 201x (Windows key -> scroll to "Visual Studio 201x" folder -> you can find it inside the folder)  
+-change directory (`cd <location>`) to `<location of this project>\source\nfp_interface`  
+-run following command `dumpbin /dependents libnfporb_interface.pyd`. This will show the requirements of the DLL/PYD for the Python version (e.g. "python39.dll" means it needs Python 3.9).  
+-change environment variable %PYTHONPATH% to the folder containing required version of Python.  
+If you think that you don't have this required version installed/available, then download and install it (reboot maybe required).  
+-(maybe needed) check (in Developer Command prompt for VS 201x) that the Python version used in command prompt is the required version (run `python --version`). If it isn't, then maybe try to modify %Path% environment variable so that the entries with required Python version are above entries with other Python versions and restart the command prompt.  
+-rebuild `libnfporb_interface.pyd` (delete `build` folder and `libnfporb_interface.pyd`, then run `build.bat`)  
+-run `run_tests.py` with required Python version (and, of course, installed required libraries (shapely, matplotlib, ...) for this version)  
 
 ### Any platform
 Use `cmake` to generate the project for your compiler with the
