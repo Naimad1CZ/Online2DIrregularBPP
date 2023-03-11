@@ -61,8 +61,10 @@ If you think that you don't have this required version installed/available, then
 -run `run_tests.py` with required Python version (and, of course, installed required libraries (shapely, matplotlib, ...) for this version)  
 
 ### Any platform
+First, you have to adjust CMake flags in `CmakeLists.txt` file provided depending on the platform/compiler. Use `set(CMAKE_CXX_FLAGS "/MD /EHsc")` while using Microsoft Visual C++ compiler or `set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")` on Linux with GCC or Clang.
+
 Use `cmake` to generate the project for your compiler with the
-`CmakeLists.txt` file provided. In the `source/nfp_interface`
+`CmakeLists.txt` file. In the `source/nfp_interface`
 folder, run:
 
 ``` {.cmd}
@@ -71,9 +73,6 @@ cd build
 cmake .. -G <your generator>
 ```
 
-Then, build it with your compiler. After that, you need to
-place the build `libnfporb_interface.dll` into the
-`wasteoptimiser/nfp_interface` folder and rename it to
-`libnfporb_interface.pyd`.
+Then, build it with your compiler (e.g. `make`). After that, you need to place the build `libnfporb_interface.so` into the `source/nfp_interface` folder.
 
 Also, you will most probably need to have `pybind11` installed (other one than Python library).
