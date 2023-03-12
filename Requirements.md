@@ -24,6 +24,9 @@ Then you need to define following environment variables: `%PYTHONPATH%` (in my c
 
 Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to `PATH` during installation (on Windows at least)).
 
+Note: if you get error `Python.h: No such file or directory`, then you can directly add path of directory with `Python.h` to `source/nfp_interface/CmakeList.txt`. 
+E.g. location is `/usr/include/python3.6/Python.h`, then add `include_directories(/usr/include/python3.6)`.
+
 Then you need to follow *Visual Studio (Windows)* or *Any platform* steps.
 
 ### Visual Studio (Windows)
@@ -39,6 +42,8 @@ My way of installation: go to some repository where you want to install `vcpkg` 
 `.\vcpkg\bootstrap-vcpkg.bat`  
 `.\vcpkg\vcpkg.exe install pybind11:x64-windows ` (be patient while it downloads and installs)  
 `.\vcpkg\vcpkg.exe integrate install`
+
+Then, in `source/nfp_interface/CmakeList.txt`, uncomment `# set(CMAKE_CXX_FLAGS "/MD /EHsc") #Microsoft Visual C++ compiler` and comment `set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC") #Linux with GCC or Clang`.
 
 It should be enough to just run `build.bat` by doubleclicking the file and it will launch Developer Command Prompt for Visual Studio. If not, then run the file from Developer PowerShell from Visual Studio.
 
