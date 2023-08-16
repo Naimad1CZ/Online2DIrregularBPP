@@ -11,3 +11,6 @@ Note: If you want to replace *libnfporb* library with your own implementation of
 
 
 Usage:  run `run_tests.py` for a sample computation. If you choose `best_run`, then it runs on dataset generators  from `SFG_competition` using specified parameters. `euro_datasets` loads and runs specified datasets from `.csv` files.
+
+
+References: My [Bachelor thesis](https://dspace.cuni.cz/bitstream/handle/20.500.11956/148383/130316114.pdf) (written in Czech)
