@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 from shapely.geometry import Polygon, MultiPolygon
-from descartes.patch import PolygonPatch
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path
 import os
 
 pyplot_radius = 11  # set this from outside to get the needed size of pyplot figures
@@ -9,6 +10,7 @@ ret = False  # set to True to disable drawing pyplot figures; also set this from
 counter = 0
 _internal_counter = 0
 drawing_name = ''
+
 
 def show_in_pyplot(polygons, lines=[], points=[], last_polygon=None, radius=None, save=True, dpi=150, grid=False, really_ret=True, mode=1, total_placed_shapes=None):
     global _internal_counter
@@ -28,10 +30,10 @@ def show_in_pyplot(polygons, lines=[], points=[], last_polygon=None, radius=None
     for p in polygons:
         if type(p) is MultiPolygon:
             for m in p:
-                patch = PolygonPatch(m, alpha=0.5, zorder=2)
+                patch = PathPatch(make_compound_path(m), alpha=0.5, zorder=2)
                 ax.add_patch(patch)
         elif type(p) is Polygon:
-            patch = PolygonPatch(p, alpha=0.5, zorder=2)
+            patch = PathPatch(make_compound_path(p), alpha=0.5, zorder=2)
             ax.add_patch(patch)
         else:
             print("don't yet implemented showing in pyplot the type", type(p))
@@ -45,7 +47,7 @@ def show_in_pyplot(polygons, lines=[], points=[], last_polygon=None, radius=None
             plt.plot(xs, ys, color='red', marker="o")
 
     if last_polygon is not None:
-        patch = PolygonPatch(last_polygon, alpha=0.5, color='red', zorder=2)
+        patch = PathPatch(make_compound_path(last_polygon), alpha=0.5, color='red', zorder=2)
         ax.add_patch(patch)
 
 
@@ -72,3 +74,10 @@ def show_in_pyplot(polygons, lines=[], points=[], last_polygon=None, radius=None
         plt.close()
     else:
         plt.show()
+
+
+def make_compound_path(polygon):
+    return Path.make_compound_path(
+        Path(list(polygon.exterior.coords)),
+        *[Path(list(ring.coords)) for ring in polygon.interiors]
+    )
