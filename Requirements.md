@@ -23,6 +23,9 @@ Then you need to define following environment variables: `%PYTHONPATH%` (in my c
 
 Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to `PATH` during installation (on Windows at least)).
 
+Note: if you get error `Python.h: No such file or directory`, then you can directly add path of directory with `Python.h` to `source/nfp_interface/CmakeList.txt`. 
+E.g. location is `/usr/include/python3.6/Python.h`, then add `include_directories(/usr/include/python3.6)`.
+
 Then you need to follow *Visual Studio (Windows)* or *Any platform* steps.
 
 ### Visual Studio (Windows)
@@ -39,13 +42,33 @@ My way of installation: go to some repository where you want to install `vcpkg` 
 `.\vcpkg\vcpkg.exe install pybind11:x64-windows ` (be patient while it downloads and installs)  
 `.\vcpkg\vcpkg.exe integrate install`
 
+Then, in `source/nfp_interface/CmakeList.txt`, uncomment `# set(CMAKE_CXX_FLAGS "/MD /EHsc") #Microsoft Visual C++ compiler` and comment `set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC") #Linux with GCC or Clang`.
+
 It should be enough to just run `build.bat` by doubleclicking the file and it will launch Developer Command Prompt for Visual Studio. If not, then run the file from Developer PowerShell from Visual Studio.
 
-If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `DLL load failed: The specified module could not be found`, then try to delete this `libnfporb_interface.pyd` file and rename  `libnfporb_interface_rescue.pyd` to  `libnfporb_interface.pyd` . 
+If you manage to get to the point when it generates `libnfporb_interface.pyd` file, but when you try to run e.g. `run_tests.py` and it says `DLL load failed: The specified module could not be found`, then you have 2 options (hopefully at least one of them will work):
+
+A)  
+-install Python 3.6 (3.6.8 if possible) and all required Python libraries (shapely, matplotlib, ...)  
+-delete `libnfporb_interface.pyd` file (in `/source/nfp_interface/`)  
+-rename `libnfporb_interface_rescue.pyd` to `libnfporb_interface.pyd`  
+-run `run_tests.py` using Python 3.6.
+
+B)  
+-open Developer Command prompt for VS 201x (Windows key -> scroll to "Visual Studio 201x" folder -> you can find it inside the folder)  
+-change directory (`cd <location>`) to `<location of this project>\source\nfp_interface`  
+-run following command `dumpbin /dependents libnfporb_interface.pyd`. This will show the requirements of the DLL/PYD for the Python version (e.g. "python39.dll" means it needs Python 3.9).  
+-change environment variable %PYTHONPATH% to the folder containing required version of Python.  
+If you think that you don't have this required version installed/available, then download and install it (reboot maybe required).  
+-(maybe needed) check (in Developer Command prompt for VS 201x) that the Python version used in command prompt is the required version (run `python --version`). If it isn't, then maybe try to modify %Path% environment variable so that the entries with required Python version are above entries with other Python versions and restart the command prompt.  
+-rebuild `libnfporb_interface.pyd` (delete `build` folder and `libnfporb_interface.pyd`, then run `build.bat`)  
+-run `run_tests.py` with required Python version (and, of course, installed required libraries (shapely, matplotlib, ...) for this version)  
 
 ### Any platform
+First, you have to adjust CMake flags in `CmakeLists.txt` file provided depending on the platform/compiler. Use `set(CMAKE_CXX_FLAGS "/MD /EHsc")` while using Microsoft Visual C++ compiler or `set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")` on Linux with GCC or Clang.
+
 Use `cmake` to generate the project for your compiler with the
-`CmakeLists.txt` file provided. In the `source/nfp_interface`
+`CmakeLists.txt` file. In the `source/nfp_interface`
 folder, run:
 
 ``` {.cmd}
@@ -54,9 +77,6 @@ cd build
 cmake .. -G <your generator>
 ```
 
-Then, build it with your compiler. After that, you need to
-place the build `libnfporb_interface.dll` into the
-`wasteoptimiser/nfp_interface` folder and rename it to
-`libnfporb_interface.pyd`.
+Then, build it with your compiler (e.g. `make`). After that, you need to place the build `libnfporb_interface.so` into the `source/nfp_interface` folder.
 
 Also, you will most probably need to have `pybind11` installed (other one than Python library).
