@@ -11,15 +11,15 @@ And then a lot of things to build  `libnfporb` library.
 Building libnfporb
 ------------------
 
-You will need `boost` (https://www.boost.org/) (or at least `boost geometry`) version **1.65.0** or **earlier** (in later versions, there's a change that breaks libnforb functioning).
+You will need `boost` (https://www.boost.org/) (or at least `boost geometry`) **exactly** version **1.76.0** (in some previous and later versions, there are changes that break libnforb functioning).
 
 You can download it from here:  
-https://sourceforge.net/projects/boost/files/boost/1.65.0/  
+https://sourceforge.net/projects/boost/files/boost/1.76.0/  
 For Windows users, there are prebuild binaries here:  
-https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/  
-(I specifically installed https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/boost_1_65_0-msvc-14.1-64.exe/download)
+https://sourceforge.net/projects/boost/files/boost-binaries/1.76.0/  
+(I specifically installed https://sourceforge.net/projects/boost/files/boost-binaries/1.76.0/boost_1_76_0-msvc-14.2-64.exe/download)
 
-Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).  
+Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_76_0`).  
 Or, alternatively, you can modify `CmakeLists.txt` file in `source/nfp_interface` folder and replace `$ENV{PYTHONPATH}` in `set(PATH_PYTHON $ENV{PYTHONPATH})` with path to `Python` and `$ENV{BOOST_ROOT}` in `set(BOOST_ROOT $ENV{BOOST_ROOT})` with the path to `boost`.
 
 Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to `PATH` during installation (on Windows at least)).

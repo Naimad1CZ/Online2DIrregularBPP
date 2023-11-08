@@ -36,20 +36,18 @@ vector<vector<pair<double, double>>> genNFP(vector<pair<double, double>> inA, ve
 	polygon_t pA = convertToPolygon(inA);
 	polygon_t pB = convertToPolygon(inB);
     
-	nfp_t nfp = generateNFP(pA, pB, false);
+	nfp_t nfp = generate_nfp(pA, pB, false);
 	
 	return convertFromPolygon(nfp);
 }
-
-
 
 vector<vector<pair<double, double>>> genIFP(vector<pair<double, double>> inA, vector<pair<double, double>> inB) {
 	polygon_t pA = convertToPolygon(inA);
 	polygon_t pB = convertToPolygon(inB);
 
-	nfp_t nfp = generateIFP(pA, pB, false);
+	nfp_t ifp = generate_ifp(pA, pB, false);
 
-	return convertFromPolygon(nfp);
+	return convertFromPolygon(ifp);
 }
 
 PYBIND11_MODULE(libnfporb_interface, m) {
