@@ -6,8 +6,8 @@ project (libnfporb_interface)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC") #Linux with GCC or Clang 
 # For other compilers you should consult its documentation.
 
-set(PATH_PYTHON $ENV{PYTHONPATH}) # replace $ENV{PYTHONPATH} with absolute path to your Python installation
-set(PATH_BOOST $ENV{BOOST_ROOT}) # replace $ENV{BOOST_ROOT} with absolute path to your Boost installation
+set(PATH_PYTHON $ENV{PYTHONPATH}) # replace $ENV{PYTHONPATH} with absolute path to your Python installation; use / (not \) in the path even on Windows
+set(PATH_BOOST $ENV{BOOST_ROOT}) # replace $ENV{BOOST_ROOT} with absolute path to your Boost installation; use / (not \) in the path even on Windows
 
 link_directories(${PATH_PYTHON}/libs) 
 include_directories(${PATH_BOOST})

@@ -40,7 +40,7 @@ for name, placer in racers.items():
     print("*" * 50)
 
     best_run = True
-    euro_datasets = False
+    euro_datasets = True
     online_benchmarks = False
     run_dan_filip = False
 
@@ -55,7 +55,7 @@ for name, placer in racers.items():
         CFR_mode = 0
         choose_least_CFR_area = False
         radius = 9
-        containers = [[(-radius, -radius), (radius, -radius), (radius, radius), (-radius, radius)]]
+        containers = [None, [(-radius, -radius), (radius, -radius), (radius, radius), (-radius, radius)]]
 
         with open('../results/' + picking_policy + '_' + str(radius) + '.txt', 'w') as f:
             for cont in containers:
@@ -99,7 +99,7 @@ for name, placer in racers.items():
                 print("", file=f)
                 print("", file=f)
 
-    elif euro_datasets:
+    if euro_datasets:
         # best method
         #picking_policy = 'surround_waste_plus'
         #CFR_mode = 0
@@ -140,7 +140,6 @@ for name, placer in racers.items():
             filled.append(sg.filled_area)
             shapes.append(sg.placed_shapes)
             print(f"SG done, placed {sg.placed_shapes} shapes!")
-            time.sleep(1)
 
         print(f"Competition ended!")
         print(f"scores are:        {filled}")
@@ -168,7 +167,7 @@ for name, placer in racers.items():
             print("", file=f)
             print("", file=f)
 
-    elif online_benchmarks:
+    if online_benchmarks:
         containers = [[(-9, -9), (9, -9), (9, 9), (-9, 9)], None]
         picking_policy = picking_policies[0]
 
@@ -215,7 +214,7 @@ for name, placer in racers.items():
                         print("", file=f)
                         print("", file=f)
 
-    elif run_dan_filip:
+    if run_dan_filip:
         with open('../results/' + name + '.txt', 'w') as f:
             filled = []
             shapes = []

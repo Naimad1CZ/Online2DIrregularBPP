@@ -9,6 +9,7 @@
 Note: If you want to replace *libnfporb* library with your own implementation of No-fit polygon and Inner-fit polygon calculation, then you need to modify only the `geometry_tools.py` file (call your own functions, maybe modify error handling, ...) to make it work.
 
 
+Build: see `Requirements.md` for instructions.
 
 Usage:  run `run_tests.py` for a sample computation. If you choose `best_run`, then it runs on dataset generators  from `SFG_competition` using specified parameters. `euro_datasets` loads and runs specified datasets from `.csv` files.
 

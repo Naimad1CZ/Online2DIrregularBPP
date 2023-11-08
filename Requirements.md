@@ -19,7 +19,8 @@ For Windows users, there are prebuild binaries here:
 https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/  
 (I specifically installed https://sourceforge.net/projects/boost/files/boost-binaries/1.65.0/boost_1_65_0-msvc-14.1-64.exe/download)
 
-Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).
+Then you need to define following environment variables: `%PYTHONPATH%` (in my case `C:\Users\Damian\AppData\Local\Programs\Python\Python36\`) and `%BOOST_ROOT%` (in my case `C:\local\boost_1_65_0`).  
+Or, alternatively, you can modify `CmakeLists.txt` file in `source/nfp_interface` folder and replace `$ENV{PYTHONPATH}` in `set(PATH_PYTHON $ENV{PYTHONPATH})` with path to `Python` and `$ENV{BOOST_ROOT}` in `set(BOOST_ROOT $ENV{BOOST_ROOT})` with the path to `boost`.
 
 Then you need to make sure that you have `cmake` (download from https://cmake.org/download/, don't forget to add it to `PATH` during installation (on Windows at least)).
 
@@ -34,8 +35,7 @@ For Windows users, there is a `build.bat` script in `source/nfp_interface`.
 
 To run it, you need to have Visual Studio 2017 or 2019 with "Desktop development with C++" tools installed (open Visual Studio -> Tools -> Get Tools and Features).
 
-Then you have to make sure that you have `pybind11` (other one than Python library) installed.
-
+Then you have to make sure that you have `pybind11` (other one than Python library) installed.  
 My way of installation: go to some repository where you want to install `vcpkg` (e.g. `C:\local\`), open PowerShell, run following commands:  
 `git clone https://github.com/Microsoft/vcpkg.git`  
 `.\vcpkg\bootstrap-vcpkg.bat`  
@@ -76,7 +76,7 @@ mkdir build
 cd build
 cmake .. -G <your generator>
 ```
-
+(note: `-G <your generator>` is optional)  
 Then, build it with your compiler (e.g. `make`). After that, you need to place the build `libnfporb_interface.so` into the `source/nfp_interface` folder.
 
 Also, you will most probably need to have `pybind11` installed (other one than Python library).

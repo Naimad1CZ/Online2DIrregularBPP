@@ -91,8 +91,9 @@ mkdir build
 cd build
 cmake .. -G %cmakegen% -DCMAKE_SYSTEM_VERSION=10.0
 devenv libnfporb_interface.sln /Build Release /Project libnfporb_interface
+echo Moving "%CD%"\Release\nfporb_interface.dll to %CD%\libnfporb_interface.pyd
 cd ..
-MOVE "%CD%"\build\Release\libnfporb_interface.dll libnfporb_interface.pyd
+MOVE "%CD%"\build\Release\nfporb_interface.dll libnfporb_interface.pyd
 
 pause
 exit /b
