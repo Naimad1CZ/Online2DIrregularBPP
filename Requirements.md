@@ -3,6 +3,7 @@ What you need in order to run this project:
 `Python` (personally using 3.6, higher version might be also ok) and the libraries:  
 -`shapely` (personally using 1.7.1)  
 -`matplotlib` (personally using 3.3.2)   
+-`pybind11-global` (personally using 2.6.2)
 -optionally `pandas` (used for processing datasets) (personally using 1.1.2)  
 -very optionally `svg.path` (personally using 4.1) and `dxfwrite` (personally using 1.2.2) - they are used for processing datasets to convert them to other file formats to run benchmarks on offline implementations
 
